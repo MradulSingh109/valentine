@@ -42,9 +42,12 @@
       </div>
     </div>
     <!-- Hidden background music -->
-    <audio id="background-music" loop>
-      <source src="Chipi chipi chapa chapa rubi rubi raba raba song.mp4" type="audio/mp4" />
+    <audio id="background-music" loop preload="auto">
+      <source src="Chipi%20chipi%20chapa%20chapa%20rubi%20rubi%20raba%20raba%20song.mp4" type="audio/mp4" />
     </audio>
+
+    <!-- Audio error message (hidden unless playback fails) -->
+    <div id="audio-error" style="display:none;position:fixed;bottom:10px;left:10px;padding:8px 12px;background:#ffdddd;border:1px solid #ff8888;border-radius:6px;font-family:sans-serif;z-index:9999">Audio failed to play — click anywhere to enable sound.</div>
     <script src="script.js"></script>
   </body>
 </html>

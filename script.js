@@ -72,5 +72,34 @@ yesBtn.addEventListener("click", () => {
 
     // Play background music
     const backgroundMusic = document.getElementById("background-music");
-    backgroundMusic.play();
+
+    // Ensure audio is loaded and audible
+    try {
+        backgroundMusic.muted = false;
+        backgroundMusic.volume = 0.7;
+        backgroundMusic.load();
+    } catch (e) {
+        console.warn('Audio setup failed', e);
+    }
+
+    // Attempt to play and handle promise rejections (browsers may block autoplay)
+    backgroundMusic.play().then(() => {
+        console.log('Background music started');
+        // hide any previous error message
+        const err = document.getElementById('audio-error');
+        if (err) err.style.display = 'none';
+    }).catch((err) => {
+        console.error('Playback failed:', err);
+        const errEl = document.getElementById('audio-error');
+        if (errEl) errEl.style.display = 'block';
+
+        // As a fallback, try to play after a user interaction anywhere on the page
+        const resume = () => {
+            backgroundMusic.play().then(() => {
+                if (errEl) errEl.style.display = 'none';
+                window.removeEventListener('click', resume);
+            }).catch(() => {});
+        };
+        window.addEventListener('click', resume);
+    });
 });
