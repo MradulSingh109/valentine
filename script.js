@@ -69,4 +69,8 @@ yesBtn.addEventListener("click", () => {
     buttons.style.display = "none";
 
     finalText.style.display = "block";
+
+    // Play background music
+    const backgroundMusic = document.getElementById("background-music");
+    backgroundMusic.play();
 });
